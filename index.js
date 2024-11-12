@@ -5,7 +5,7 @@ let currentValue = '';
 document.addEventListener("DOMContentLoaded", function(){
     //Store all components on HTML in our JS
 
-    let clear = document.querySelector("#clear");
+    let clear = document.querySelector(".btn.clear");
     let equal = document.querySelector(".equal");
     let decimal = document.querySelector(".decimal");
 
@@ -16,10 +16,34 @@ document.addEventListener("DOMContentLoaded", function(){
     let currentNumber = document.querySelector(".current");
 
     numbers.forEach((number) => number.addEventListener("click", function(e){
-        handleNumber(e.target.textContent);
+        handleNumber(e.target.textContent)
+        currentNumber.textContent = currentValue;
     }))
-})
+
+    opertators.forEach((op) => op.addEventListener("click", function(e){
+        handleOperator(e.target.textContent)
+        previousNumber.textContent = previousValue + " " + operator;
+        currentNumber.textContent = currentValue;
+    }))
+
+    clear.addEventListener("click", function(){
+        previousValue = '';
+        currentValue = '';
+        operator = '';
+        previousNumber.textContent = currentValue;
+        currentNumber.textContent = currentValue;
+    })
+
+});
 
 function handleNumber(num) {
-    console.log(num);
+    if(currentValue.length <= 5) {
+        currentValue += num;
+    }
+}
+
+function handleOperator(op) {
+    operator = op;
+    previousValue = currentValue;
+    currentValue = '';
 }
