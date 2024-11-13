@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let previousNumber = document.querySelector(".previous");
     let currentNumber = document.querySelector(".current");
 
+    //Functionality for on-screen buttons
     numbers.forEach((number) => number.addEventListener("click", function(e){
         handleNumber(e.target.textContent)
         currentNumber.textContent = currentValue;
@@ -43,6 +44,31 @@ document.addEventListener("DOMContentLoaded", function(){
     decimal.addEventListener("click", function(){
         addDecimal();
     })
+
+    //functionality for keyboard keys
+    document.addEventListener("keydown", function(e){
+        if(!isNaN(e.key)) {
+            handleNumber(e.key)
+            console.log(e.key)
+            currentNumber.textContent = currentValue;
+        } else if (e.key === "+" || e.key === "X" || e.key === "x" || e.key === "-" || e.key === "/") {
+            handleOperator(e.key)
+            previousNumber.textContent = previousValue + " " + operator;
+            currentNumber.textContent = currentValue;
+        } else if (e.key === "Enter") {
+            calculate()
+            previousNumber.textContent = '';
+            currentNumber.textContent = previousValue;
+        } else if (e.key === "Delete") {
+            previousValue = '';
+            currentValue = '';
+            operator = '';
+            previousNumber.textContent = currentValue;
+            currentNumber.textContent = currentValue;
+        } else if (e.key === ".") {
+            addDecimal();
+        }
+    });
 
 });
 
