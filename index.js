@@ -35,9 +35,13 @@ document.addEventListener("DOMContentLoaded", function(){
     })
 
     equal.addEventListener("click", function(){
-        calculate()
+        calculate();
         previousNumber.textContent = '';
         currentNumber.textContent = previousValue;
+    })
+
+    decimal.addEventListener("click", function(){
+        addDecimal();
     })
 
 });
@@ -72,4 +76,10 @@ function calculate() {
     currentValue = currentValue.toString();
         
     console.log(previousValue);
+}
+
+function addDecimal() {
+    if(!currentValue.includes(".")) {
+        currentValue += '.';
+    }
 }
